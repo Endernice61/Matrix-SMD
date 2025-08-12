@@ -5,7 +5,7 @@ def read_matrix():
     try:
         inputmatrix = sys.argv[2]
     except:
-        print('Please enter a matrix in the form "1, 0, 0 \\\\ 0, 1, 0 \\\\ 0, 0, 1"')
+        print('Please enter a matrix in the form "1, 0, 0 \\\\ 0, 1, 0 \\\\ 0, 0, 1"\nIf a fourth column is specified, it will be used as a translation')
         inputmatrix = input()
     try:
         rows = inputmatrix.rsplit("\\")

@@ -7,7 +7,10 @@ def transform_vertex(input_string,transformation):
     while (i<len(data)):
         tail += " " + data[i]
         i += 1
-    vec = linear_transformation.transform(transformation,[float(data[1]),float(data[2]),float(data[3])])
+    if (len(transformation[0])==4):
+        vec = linear_transformation.transform(transformation,[float(data[1]),float(data[2]),float(data[3]),float(1)])
+    else:
+        vec = linear_transformation.transform(transformation,[float(data[1]),float(data[2]),float(data[3])])
     return f"  {data[0]} {vec[0]:.6f} {vec[1]:.6f} {vec[2]:.6f}{tail}\n"
 
 def transform_triangle(input_f,output,transformation):
