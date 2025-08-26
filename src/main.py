@@ -1,6 +1,7 @@
 import sys
 import read_matrix
 import smd.transform
+import matrix
 
 ###Read file name
 try:
@@ -28,6 +29,12 @@ except:
 
 ###Read the matrix from the console
 transformation = read_matrix.read_matrix()
+normal = matrix.truncated(transformation,3,3)
+try:
+    normal = matrix.invert(normal)
+    normal = matrix.transpose(normal)
+except:
+    normal = None
 
 ###Function definition
 def read_to(input_f,output,stop_string):
@@ -45,7 +52,7 @@ read_to(source_f,transformed_file,'skeleton\n')
 line = source_f.readline()
 ##Loop through frames
 while (line != '' and line != 'end\n'):
-    if (line.startswith('  time')):
+    if (line.startswith('  time') or line.startswith('time')):
         transformed_file.write(line)
     else:
         transformed_file.write("  " + smd.transform.transform_vertex(line,transformation))
@@ -59,7 +66,7 @@ if (line != ''):
     line = source_f.readline()
     while (line != '' and line != 'end\n'):
         transformed_file.write(line)
-        smd.transform.transform_triangle(source_f,transformed_file,transformation)
+        smd.transform.transform_triangle(source_f,transformed_file,transformation,normal)
         line = source_f.readline()
     transformed_file.write(line)
 
